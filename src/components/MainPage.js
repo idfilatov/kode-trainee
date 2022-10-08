@@ -25,14 +25,18 @@ class MainPage extends React.Component {
         workers: []
     }
 
-    componentDidMount() {
-        getWorkers('all')
+    updateWorkers = (filter) => {
+        getWorkers(filter)
             .then((workers) => {
                 console.log('workers in componentDidMount: ', workers);
                 this.setState(() => ({
                     workers: workers
                 }));
             })
+    }
+
+    componentDidMount() {
+        this.updateWorkers('all');
 
         // axios.get("https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__example=frontend")
         //     // .then((response) => response.json())
@@ -58,6 +62,7 @@ class MainPage extends React.Component {
             filter: filter
         }));
         console.log('New filter: ', filter);
+        this.updateWorkers(filter);
     }
 
     render() {
