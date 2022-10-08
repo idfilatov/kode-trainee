@@ -1,8 +1,12 @@
 import React from 'react'
 
+import WorkerItem from './WorkerItem'
+
 function WorkersList(props) {
     return (
-        <div>Worker List</div>
+        <ul>
+            {props.workers.map((worker) => <WorkerItem key={worker.id} />)}
+        </ul>
     )
 }
 

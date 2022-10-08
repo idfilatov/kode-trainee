@@ -1,15 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 
 import Header from './Header'
 import WorkersList from './WorkersList'
+
+
+const getWorkers = (filter) =>
+    axios.get(`https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__example=${filter}`)
+        // .then((response) => response.json())
+        .then((response) => response.data.items)
+        .then((workers) => {
+            console.log('workers in request: ', workers);
+            return workers
+        })
+        .catch((err) => console.error(err));
+
+
 
 class MainPage extends React.Component {
 
     state = {
         query: '',
-        filter: 'all'
+        filter: 'all',
+        workers: []
     }
 
+    componentDidMount() {
+        getWorkers('all')
+            .then((workers) => {
+                console.log('workers in componentDidMount: ', workers);
+                this.setState(() => ({
+                    workers: workers
+                }));
+            })
+
+        // axios.get("https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__example=frontend")
+        //     // .then((response) => response.json())
+        //     .then((response) => console.log('workers in request: ', response.data.items))
+        //     .catch((err) => console.error(err));
+
+
+    }
 
     updateQuery = (query) => {
         this.setState(() => ({
@@ -37,29 +68,29 @@ class MainPage extends React.Component {
                 filterPlaceholder: 'Все'
             },
             {
-                filterName: 'Designers',
+                filterName: 'design',
                 filterPlaceholder: 'Designers'
             },
             {
-                filterName: 'Analysts',
+                filterName: 'analytics',
                 filterPlaceholder: 'Analysts'
             },
             {
-                filterName: 'Managers',
+                filterName: 'management',
                 filterPlaceholder: 'Managers'
             },
             {
-                filterName: 'iOS',
+                filterName: 'ios',
                 filterPlaceholder: 'iOS'
             },
             {
-                filterName: 'Android',
+                filterName: 'android',
                 filterPlaceholder: 'Android'
             },
         ];
 
-        const { query } = this.state;
-        const contacts = null;
+        const { query, workers } = this.state;
+        console.log('workers in render: ', workers);
 
         return (
             <div>
@@ -77,7 +108,7 @@ class MainPage extends React.Component {
                 <div>
                     {filters.map((filter) => <button key={filter.filterName} onClick={() => this.updateFilter(filter.filterName)}>{filter.filterPlaceholder}</button>)}
                 </div>
-                <WorkersList />
+                <WorkersList workers={workers} />
             </div>
         )
     }
