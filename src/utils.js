@@ -53,6 +53,13 @@ export const getWorkers = (filter) =>
         })
         .catch((err) => console.error(err));
 
+export const updateWorkers = (filter, callback) => {
+    getWorkers(filter)
+        .then((workers) => {
+            console.log('workers in componentDidMount: ', workers);
+            callback(workers)
+        })
+}
 
 export function compareDates(monthA, monthB, dayA, dayB) {
     if (monthA > monthB) { return 1 }

@@ -1,12 +1,13 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 function WorkerItem(props) {
     return (
-        <li className='worker-list-item'>
+        <Link to={`/${props.worker.id}`} className='worker-list-item'>
             {(props.sortType === 'birthdate' && props.worker.firstNexYear) ? <div>-----{new Date().getFullYear() + 1}----</div> : null}
             <br />
             <div className='worker-avatar'>
-                <img src="https://api.lorem.space/image/face?w=120&h=120" alt='' />
+                <img src={props.worker.avatarUrl} alt='' />
             </div>
             <div className='worker-details'>
                 {`${props.worker.firstName} ${props.worker.lastName} (${props.worker.userTag})`}
@@ -15,7 +16,7 @@ function WorkerItem(props) {
                 <br />
                 {props.sortType === 'birthdate' ? props.worker.birthday : null}
             </div>
-        </li>
+        </Link>
     )
 }
 

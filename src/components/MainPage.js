@@ -3,7 +3,7 @@ import React from 'react'
 import Modal from './Modal'
 import WorkerItem from './WorkerItem';
 
-import { getWorkers, reorderWorkers } from './../utils'
+import { updateWorkers, reorderWorkers } from './../utils'
 import { filters, comparators } from './../utils'
 
 
@@ -17,18 +17,15 @@ class MainPage extends React.Component {
         modal: false
     }
 
-    updateWorkers = (filter) => {
-        getWorkers(filter)
-            .then((workers) => {
-                console.log('workers in componentDidMount: ', workers);
-                this.setState(() => ({
-                    workers: workers
-                }));
-            })
-    }
+
 
     componentDidMount() {
-        this.updateWorkers('all');
+        updateWorkers(
+            'all',
+            workers => this.setState(() => ({
+                workers: workers
+            }))
+        );
     }
 
     updateQuery = (query) => {
