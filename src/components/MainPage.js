@@ -1,21 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import React from 'react'
 
 import Modal from './Modal'
-import WorkersList from './WorkersList'
 import WorkerItem from './WorkerItem';
 
-
-const getWorkers = (filter) =>
-    axios.get(`https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__example=${filter}`)
-        // .then((response) => response.json())
-        .then((response) => response.data.items)
-        .then((workers) => {
-            console.log('workers in request: ', workers);
-            return workers
-        })
-        .catch((err) => console.error(err));
-
+import { getWorkers, reorderWorkers } from './../utils'
+import { filters, comparators } from './../utils'
 
 
 class MainPage extends React.Component {
@@ -77,45 +66,10 @@ class MainPage extends React.Component {
         // this.updateWorkers(filter);
     }
 
+
     render() {
 
-        const filters = [
-            {
-                filterName: 'all',
-                filterPlaceholder: 'Все'
-            },
-            {
-                filterName: 'design',
-                filterPlaceholder: 'Designers'
-            },
-            {
-                filterName: 'analytics',
-                filterPlaceholder: 'Analysts'
-            },
-            {
-                filterName: 'management',
-                filterPlaceholder: 'Managers'
-            },
-            {
-                filterName: 'ios',
-                filterPlaceholder: 'iOS'
-            },
-            {
-                filterName: 'android',
-                filterPlaceholder: 'Android'
-            },
-        ];
 
-        const comparators = {
-            'alphabetic': {
-                'comparator': (a, b) => (a.lastName.localeCompare(b.lastName)),
-                'description': 'По алфавиту'
-            },
-            'birthdate': {
-                'comparator': (a, b) => (a.lastName.localeCompare(b.lastName)),
-                'description': 'По дню рождения'
-            }
-        }
 
         const { query, filter, workers, sortType, modal } = this.state;
         const filteredWorkers = (filter === 'all')
@@ -134,8 +88,10 @@ class MainPage extends React.Component {
             )
             );
 
-        const sortedWorkers = showingWorkers.sort(comparators[sortType]['comparator']);
-        // const sortedWorkers = showingWorkers.sort((a, b) => a.lastName.toLowerCase() - b.lastName.toLowerCase());
+        let sortedWorkers = showingWorkers.sort(comparators[sortType]['comparator']);
+        if (sortType === 'birthdate') {
+            sortedWorkers = reorderWorkers(sortedWorkers)
+        }
 
         return (
             <div>
@@ -173,7 +129,6 @@ class MainPage extends React.Component {
             </div>
         )
     }
-
 }
 
 
