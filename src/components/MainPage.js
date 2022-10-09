@@ -59,10 +59,11 @@ class MainPage extends React.Component {
 
     updateFilter = (filter) => {
         this.setState(() => ({
-            filter: filter
+            filter: filter,
+            query: ''
         }));
         console.log('New filter: ', filter);
-        this.updateWorkers(filter);
+        // this.updateWorkers(filter);
     }
 
     render() {
@@ -94,8 +95,22 @@ class MainPage extends React.Component {
             },
         ];
 
-        const { query, workers } = this.state;
-        console.log('workers in render: ', workers);
+        const { query, filter, workers } = this.state;
+        const filteredWorkers = (filter === 'all')
+            ? workers
+            : workers.filter((w) => (w.department === filter));
+
+        console.log('workers in render: ', filteredWorkers, 'with filter: ', filter);
+
+        const showingWorkers = (query === '')
+            ? filteredWorkers
+            : filteredWorkers.filter((w) =>
+            (
+                w.firstName.toLowerCase().includes(query.toLowerCase()) ||
+                w.lastName.toLowerCase().includes(query.toLowerCase()) ||
+                w.userTag.toLowerCase().includes(query.toLowerCase())
+            )
+            );
 
         return (
             <div>
@@ -113,7 +128,7 @@ class MainPage extends React.Component {
                 <div>
                     {filters.map((filter) => <button key={filter.filterName} onClick={() => this.updateFilter(filter.filterName)}>{filter.filterPlaceholder}</button>)}
                 </div>
-                <WorkersList workers={workers} />
+                <WorkersList workers={showingWorkers} />
             </div>
         )
     }
