@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
-import Header from './Header'
+import Modal from './Modal'
 import WorkersList from './WorkersList'
+import WorkerItem from './WorkerItem';
 
 
 const getWorkers = (filter) =>
@@ -22,7 +23,9 @@ class MainPage extends React.Component {
     state = {
         query: '',
         filter: 'all',
-        workers: []
+        workers: [],
+        sortType: 'alphabetic',
+        modal: false
     }
 
     updateWorkers = (filter) => {
@@ -37,13 +40,6 @@ class MainPage extends React.Component {
 
     componentDidMount() {
         this.updateWorkers('all');
-
-        // axios.get("https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__example=frontend")
-        //     // .then((response) => response.json())
-        //     .then((response) => console.log('workers in request: ', response.data.items))
-        //     .catch((err) => console.error(err));
-
-
     }
 
     updateQuery = (query) => {
@@ -55,6 +51,21 @@ class MainPage extends React.Component {
 
     clearQuery = () => {
         this.updateQuery('');
+    }
+
+    toggleModal = () => {
+        this.setState((prevState) => ({
+            modal: !prevState.modal
+        }));
+    }
+
+    selectSorting = (e) => {
+        const newSortType = e.currentTarget.value
+        console.log('New selected sorting: ', newSortType)
+        this.setState(() => ({
+            sortType: newSortType
+        }));
+        this.toggleModal()
     }
 
     updateFilter = (filter) => {
@@ -95,7 +106,18 @@ class MainPage extends React.Component {
             },
         ];
 
-        const { query, filter, workers } = this.state;
+        const comparators = {
+            'alphabetic': {
+                'comparator': (a, b) => (a.lastName.localeCompare(b.lastName)),
+                'description': 'По алфавиту'
+            },
+            'birthdate': {
+                'comparator': (a, b) => (a.lastName.localeCompare(b.lastName)),
+                'description': 'По дню рождения'
+            }
+        }
+
+        const { query, filter, workers, sortType, modal } = this.state;
         const filteredWorkers = (filter === 'all')
             ? workers
             : workers.filter((w) => (w.department === filter));
@@ -112,6 +134,9 @@ class MainPage extends React.Component {
             )
             );
 
+        const sortedWorkers = showingWorkers.sort(comparators[sortType]['comparator']);
+        // const sortedWorkers = showingWorkers.sort((a, b) => a.lastName.toLowerCase() - b.lastName.toLowerCase());
+
         return (
             <div>
                 Поиск
@@ -124,11 +149,27 @@ class MainPage extends React.Component {
                     onChange={(event) => this.updateQuery(event.target.value)}
                 />
                 <button onClick={this.clearQuery}>Очистить</button>
-                <button>Сортировка</button>
+                <button onClick={this.toggleModal}>Сортировка</button>
+                {modal
+                    ? <Modal
+                        comparators={comparators}
+                        sortType={sortType}
+                        onChangeHandler={this.selectSorting}
+                    />
+                    : null
+                }
                 <div>
                     {filters.map((filter) => <button key={filter.filterName} onClick={() => this.updateFilter(filter.filterName)}>{filter.filterPlaceholder}</button>)}
                 </div>
-                <WorkersList workers={showingWorkers} />
+                <ul>
+                    {sortedWorkers.map((worker) =>
+                        <WorkerItem
+                            key={worker.id}
+                            worker={worker}
+                            sortType={sortType}
+                        />)
+                    }
+                </ul>
             </div>
         )
     }

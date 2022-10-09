@@ -11,6 +11,8 @@ function WorkerItem(props) {
                 {`${props.worker.firstName} ${props.worker.lastName} (${props.worker.userTag})`}
                 <br />
                 {`${props.worker.position}`}
+                <br />
+                {props.sortType === 'birtdate' ? props.worker.birthday : null}
             </div>
         </li>
     )
