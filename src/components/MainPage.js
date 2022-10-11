@@ -92,27 +92,56 @@ class MainPage extends React.Component {
 
         return (
             <div>
-                Поиск
-                <br />
-                <input
-                    className='search-contacts'
-                    type='text'
-                    placeholder='Search Contacts'
-                    value={query}
-                    onChange={(event) => this.updateQuery(event.target.value)}
-                />
-                <button onClick={this.clearQuery}>Очистить</button>
-                <button onClick={this.toggleModal}>Сортировка</button>
-                {modal
-                    ? <Modal
-                        comparators={comparators}
-                        sortType={sortType}
-                        onChangeHandler={this.selectSorting}
-                    />
-                    : null
-                }
-                <div>
-                    {filters.map((filter) => <button key={filter.filterName} onClick={() => this.updateFilter(filter.filterName)}>{filter.filterPlaceholder}</button>)}
+                <div className='header'>
+                    <div className='header-spacing'></div>
+                    <div className='header-hello-panel'>
+                        <div className='header-hello'>Поиск</div>
+                    </div>
+
+                    <div className='header-search-panel'>
+                        <div className='header-search-bar'>
+                            <i class="material-icons" >search</i>
+                            <input
+                                className='header-search'
+                                type='text'
+                                placeholder='Введи имя, тег, почту...'
+                                value={query}
+                                onChange={(event) => this.updateQuery(event.target.value)}
+                            />
+                            {query !== ''
+                                ? <button className='header-sort' onClick={this.clearQuery}>
+                                    <i class="material-icons" >close</i>
+                                </button> : null
+                            }
+
+                            <button className='header-sort' onClick={this.toggleModal}>
+                                <i class="material-icons" >sort</i>
+                            </button>
+                        </div>
+                        {modal
+                            ? <Modal
+                                comparators={comparators}
+                                sortType={sortType}
+                                onChangeHandler={this.selectSorting}
+                            />
+                            : null
+                        }
+                    </div>
+                    <div className='header-filters-panel'>
+                        <div className='header-filter-tabs'>
+                            <div className='header-filter-tabs-holder'>
+                                {filters.map((f) => <button
+                                    className={filter === f.filterName ? 'header-filter-button-active' : 'header-filter-button'}
+                                    key={f.filterName}
+                                    onClick={() => this.updateFilter(f.filterName)}>
+                                    <div className={filter === f.filterName ? 'header-filter-button-text-active' : 'header-filter-button-text'}>
+                                        {f.filterPlaceholder}
+                                    </div>
+
+                                </button>)}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <ul>
                     {sortedWorkers.map((worker) =>

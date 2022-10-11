@@ -9,10 +9,8 @@ class App extends Component {
   render() {
     return (
       <Router>
-
         <Route path='/' exact component={MainPage} />
         <Route path='/:id' component={WorkerDetailsPage} />
-
       </Router>
 
     )
