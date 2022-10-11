@@ -91,7 +91,18 @@ class MainPage extends React.Component {
         }
 
         return (
-            <div>
+            <div className='body'>
+
+                {modal
+                    ? <Modal
+                        comparators={comparators}
+                        sortType={sortType}
+                        onChangeHandler={this.selectSorting}
+                        onCloseHandler={this.toggleModal}
+                    />
+                    : null
+                }
+
                 <div className='header'>
                     <div className='header-spacing'></div>
                     <div className='header-hello-panel'>
@@ -118,14 +129,7 @@ class MainPage extends React.Component {
                                 <i class="material-icons" >sort</i>
                             </button>
                         </div>
-                        {modal
-                            ? <Modal
-                                comparators={comparators}
-                                sortType={sortType}
-                                onChangeHandler={this.selectSorting}
-                            />
-                            : null
-                        }
+
                     </div>
                     <div className='header-filters-panel'>
                         <div className='header-filter-tabs'>
@@ -141,8 +145,10 @@ class MainPage extends React.Component {
                                 </button>)}
                             </div>
                         </div>
+                        <hr />
                     </div>
                 </div>
+
                 <ul>
                     {sortedWorkers.map((worker) =>
                         <WorkerItem
@@ -152,7 +158,7 @@ class MainPage extends React.Component {
                         />)
                     }
                 </ul>
-            </div>
+            </div >
         )
     }
 }

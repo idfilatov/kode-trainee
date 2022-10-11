@@ -51,12 +51,15 @@ export const getWorkers = (filter) =>
             console.log('workers in request: ', workers);
             return workers
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+            console.error(err);
+            return []
+        });
 
 export const updateWorkers = (filter, callback) => {
     getWorkers(filter)
         .then((workers) => {
-            console.log('workers in componentDidMount: ', workers);
+            console.log('workers in Details componentDidMount: ', workers);
             callback(workers)
         })
 }

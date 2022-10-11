@@ -82,6 +82,11 @@ i {
     color: #C3C3C6;
 }
 
+hr {
+    margin: 0;
+    border-top: 1px solid #C3C3C6;
+}
+
 .header-search-bar {
     display: flex;
     /* flex-direction: row; */
@@ -137,9 +142,9 @@ i {
     float: left;
 }
 
-/* input:focus {
-    outline: none;
-} */
+.header-sort:hover {
+    cursor: pointer;
+}
 
 .header-filters-panel {
     height: 44px;
@@ -151,11 +156,12 @@ i {
 }
 
 .header-filter-tabs {
-    position: relative;
+    /* position: relative; */
+
     height: 36px;
-    left: 0px;
+    /* left: 0px;
     right: 0px;
-    bottom: 0px;
+    bottom: 0px; */
 }
 
 .header-filter-tabs-holder {
@@ -227,4 +233,100 @@ i {
 .header-filter-button-text-active {
     font-weight: 600;
     color: #050510;
+}
+
+/* .body {} */
+
+.under-modal {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(5, 5, 16, 0.36);
+    position: fixed;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 0px 8px;
+
+    position: fixed;
+    width: 373px;
+    height: 192px;
+    left: calc(50% - 373px/2 + 0.5px);
+    top: calc(50% - 192px/2);
+
+    /* [Light] BG / Card Primary */
+
+    background: white;
+    border-radius: 20px;
+}
+
+.modal-header {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    padding-right: 23px;
+    padding-left: 23px;
+    /* padding: 23px; */
+}
+
+.modal-header-text {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-left: 36px;
+}
+
+.modal-switcher {
+    height: 120px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.modal-switcher-item {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+}
+
+.modal-switcher-item-text {
+    margin-left: 14px;
+}
+
+/* input[type='radio'] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+} */
+
+.modal-switcher-item-radio {
+    accent-color: #6534FF;
+    background-color: #2196F3;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.modal-switcher-item-radio:checked {
+    background-color: #2196F3;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
 }
