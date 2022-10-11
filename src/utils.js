@@ -7,15 +7,15 @@ export const filters = [
     },
     {
         filterName: 'design',
-        filterPlaceholder: 'Designers'
+        filterPlaceholder: 'Дизайн'
     },
     {
         filterName: 'analytics',
-        filterPlaceholder: 'Analysts'
+        filterPlaceholder: 'Аналитика'
     },
     {
         filterName: 'management',
-        filterPlaceholder: 'Managers'
+        filterPlaceholder: 'Менеджмент'
     },
     {
         filterName: 'ios',
@@ -26,6 +26,21 @@ export const filters = [
         filterPlaceholder: 'Android'
     },
 ];
+
+export const departmentsToRussian = {
+    android: 'Android',
+    ios: 'iOS',
+    design: 'Дизайн',
+    management: 'Менеджмент',
+    qa: 'QA',
+    back_office: 'Бэк-офис',
+    frontend: 'Frontend',
+    hr: 'HR',
+    pr: 'PR',
+    backend: 'Backend',
+    support: 'Техподдержка',
+    analytics: 'Аналитика',
+}
 
 export const comparators = {
     'alphabetic': {
@@ -116,4 +131,24 @@ export function reorderWorkers(sortedWorkers) {
     console.log('reorderWorkers: ', workers);
 
     return workers
+}
+
+export function dateToHuman(date) {
+    const monthNames = {
+        '01': 'янв',
+        '02': 'фев',
+        '03': 'мар',
+        '04': 'апр',
+        '05': 'май',
+        '06': 'июн',
+        '07': 'июл',
+        '08': 'авг',
+        '09': 'сен',
+        '10': 'окт',
+        '11': 'ноя',
+        '12': 'дек',
+
+    }
+    const [year, month, day] = date.split('-');
+    return `${parseInt(day)} ${monthNames[month]}`
 }

@@ -14,7 +14,6 @@ function Modal(props) {
                     </button>
                 </div>
                 <div className='modal-switcher'>
-                    {/* {Object.keys(props.comparators).map((c) => <p key={c}>{props.comparators[c]['description']}</p>)} */}
                     {Object.keys(props.comparators).map((c) =>
                         <div key={c} className='modal-switcher-item'>
                             <input

@@ -91,7 +91,7 @@ class MainPage extends React.Component {
         }
 
         return (
-            <div className='body'>
+            <div>
 
                 {modal
                     ? <Modal
@@ -149,15 +149,19 @@ class MainPage extends React.Component {
                     </div>
                 </div>
 
-                <ul>
-                    {sortedWorkers.map((worker) =>
-                        <WorkerItem
-                            key={worker.id}
-                            worker={worker}
-                            sortType={sortType}
-                        />)
-                    }
-                </ul>
+                <div className='body'>
+                    <div className='workers'>
+
+                        {sortedWorkers.map((worker) =>
+                            <WorkerItem
+                                key={worker.id}
+                                worker={worker}
+                                sortType={sortType}
+                            />)
+                        }
+
+                    </div>
+                </div>
             </div >
         )
     }
