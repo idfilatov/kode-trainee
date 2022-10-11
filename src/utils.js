@@ -111,6 +111,10 @@ export function reorderWorkers(sortedWorkers) {
     let firstNexYear = true;
 
     for (let worker of sortedWorkers) {
+        delete worker.firstNexYear;
+    }
+
+    for (let worker of sortedWorkers) {
         switch (compareWorkerBirthdateWithNow(worker)) {
             case 1:
                 if (firstNexYear) {
