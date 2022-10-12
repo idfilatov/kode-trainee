@@ -28,7 +28,6 @@ class App extends Component {
         return (
             <Router location={history.location}>
                 <Route path='/' exact component={() => <MainPage workers={workers} />} />
-                {/* <Route path='/:id' component={WorkerDetailsPage} /> */}
                 <Route path='/:id' component={(history) => <WorkerDetailsPage workers={workers} history={history} />} />
             </Router>
 

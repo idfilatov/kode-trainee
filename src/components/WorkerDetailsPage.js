@@ -17,6 +17,8 @@ class WorkerDetailsPage extends React.Component {
     }
     render() {
         console.log('WorkerDetailsPage props: ', this.props);
+        // console.log('WorkerDetailsPage history: ', window.location);
+
         const id = this.props.history.location.pathname.slice(1);
         const { workers } = this.state;
         const currentWorker = workers.filter((w) => w.id === id)[0];
