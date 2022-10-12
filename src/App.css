@@ -184,20 +184,13 @@ hr {
     font-size: 15px;
     line-height: 20px;
 
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* align-items: flex-start; */
     padding: 0px;
 
     border: none;
     background: none;
 
-    /* width: 52px; */
     height: 36px;
 
-    /* flex: none;
-    order: 0;
-    flex-grow: 0; */
 }
 
 .header-filter-button-active {
@@ -253,8 +246,6 @@ hr {
     height: 192px;
     left: calc(50% - 373px/2 + 0.5px);
     top: calc(50% - 192px/2);
-
-    /* [Light] BG / Card Primary */
 
     background: white;
     border-radius: 20px;
@@ -556,3 +547,88 @@ hr {
 .worker-details-years-old {}
 
 .worker-details-phone {}
+
+.no-results-holder {
+    --width: 343px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    /* gap: 16px; */
+
+    position: absolute;
+    width: var(--width);
+    height: 118px;
+    left: calc(50% - var(--width)/2);
+    top: 301px;
+    /* background-color: #C3C3C6; */
+}
+
+.no-results-lupa-holder {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.no-results-lupa-img {
+    width: 56px;
+    height: 56px;
+}
+
+.no-results-text {
+    margin-top: 8px;
+    width: 100%;
+}
+
+.no-results-text-upper {
+    height: 22px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+
+    text-align: center;
+
+    color: #050510;
+}
+
+.no-results-text-lower {
+    height: 20px;
+    margin-top: 12px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+
+    text-align: center;
+
+    color: #97979B;
+}
+
+.no-results-text-lowerest {
+    height: 20px;
+    margin-top: 12px;
+
+    text-align: center;
+}
+
+.retry-button {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+
+    border: none;
+    background: none;
+
+    color: #6534FF;
+}
+
+.retry-button:hover {
+    cursor: pointer;
+}

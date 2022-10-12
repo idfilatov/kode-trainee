@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 import { departmentsToRussian, dateToHuman } from './../utils'
 
 function WorkerItem(props) {
     return (
 
-        <Link to={`/${props.worker.id}`} className='workers-list-item'>
+        <NavLink to={`/${props.worker.id}`} className='workers-list-item'>
 
 
             {(props.sortType === 'birthdate' && props.worker.firstNexYear)
@@ -42,7 +42,7 @@ function WorkerItem(props) {
                     {props.sortType === 'birthdate' ? dateToHuman(props.worker.birthday) : null}
                 </div>
             </div>
-        </Link>
+        </NavLink>
 
     )
 }

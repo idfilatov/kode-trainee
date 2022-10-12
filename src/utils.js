@@ -60,7 +60,8 @@ export const comparators = {
 }
 
 export const getWorkers = (filter) =>
-    axios.get(`https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__example=${filter}`)
+    // axios.get(`https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__example=${filter}`)
+    axios.get(`https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?${(Math.random() < 0.4) ? '__code=500' : ''}&__dynamic=true`)
         .then((response) => response.data.items)
         .then((workers) => {
             console.log('workers in request: ', workers);
@@ -68,7 +69,7 @@ export const getWorkers = (filter) =>
         })
         .catch((err) => {
             console.error(err);
-            return []
+            return null
         });
 
 export const updateWorkers = (filter, callback) => {

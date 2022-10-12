@@ -10,7 +10,7 @@ function Modal(props) {
                         <div>Сортировка</div>
                     </div>
                     <button className='header-sort' onClick={() => props.onCloseHandler()}>
-                        <i class="material-icons" >close</i>
+                        <i className="material-icons" >close</i>
                     </button>
                 </div>
                 <div className='modal-switcher'>

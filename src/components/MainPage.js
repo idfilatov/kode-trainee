@@ -1,9 +1,11 @@
 import React from 'react'
 
 import Modal from './Modal'
-import WorkerItem from './WorkerItem';
+import WorkersList from './WorkersList';
+import NoSearchResults from './NoSearchResults';
+import ErrorPage from './ErrorPage';
 
-import { updateWorkers, reorderWorkers } from './../utils'
+import { reorderWorkers } from './../utils'
 import { filters, comparators } from './../utils'
 
 
@@ -17,15 +19,10 @@ class MainPage extends React.Component {
         modal: false
     }
 
-
-
     componentDidMount() {
-        updateWorkers(
-            'all',
-            workers => this.setState(() => ({
-                workers: workers
-            }))
-        );
+        this.setState(() => ({
+            workers: this.props.workers
+        }))
     }
 
     updateQuery = (query) => {
@@ -60,15 +57,16 @@ class MainPage extends React.Component {
             query: ''
         }));
         console.log('New filter: ', filter);
-        // this.updateWorkers(filter);
     }
 
-
     render() {
-
-
-
-        const { query, filter, workers, sortType, modal } = this.state;
+        const { query, filter, sortType, modal } = this.state;
+        let { workers } = this.state;
+        let error = false;
+        if (workers === null) {
+            workers = [];
+            error = true;
+        }
         const filteredWorkers = (filter === 'all')
             ? workers
             : workers.filter((w) => (w.department === filter));
@@ -89,6 +87,9 @@ class MainPage extends React.Component {
         if (sortType === 'birthdate') {
             sortedWorkers = reorderWorkers(sortedWorkers)
         }
+
+        console.log('sortedWorkers in render: ', filteredWorkers, 'with filter: ', filter);
+
 
         return (
             <div>
@@ -111,7 +112,7 @@ class MainPage extends React.Component {
 
                     <div className='header-search-panel'>
                         <div className='header-search-bar'>
-                            <i class="material-icons" >search</i>
+                            <i className="material-icons" >search</i>
                             <input
                                 className='header-search'
                                 type='text'
@@ -121,12 +122,12 @@ class MainPage extends React.Component {
                             />
                             {query !== ''
                                 ? <button className='header-sort' onClick={this.clearQuery}>
-                                    <i class="material-icons" >close</i>
+                                    <i className="material-icons" >close</i>
                                 </button> : null
                             }
 
                             <button className='header-sort' onClick={this.toggleModal}>
-                                <i class="material-icons" >sort</i>
+                                <i className="material-icons" >sort</i>
                             </button>
                         </div>
 
@@ -149,19 +150,18 @@ class MainPage extends React.Component {
                     </div>
                 </div>
 
-                <div className='body'>
-                    <div className='workers'>
 
-                        {sortedWorkers.map((worker) =>
-                            <WorkerItem
-                                key={worker.id}
-                                worker={worker}
-                                sortType={sortType}
-                            />)
-                        }
+                {
+                    error
+                        ? <ErrorPage /> :
+                        (sortedWorkers.length > 0)
+                            ? <WorkersList sortedWorkers={sortedWorkers} sortType={sortType} />
+                            : (query !== '')
+                                ? <NoSearchResults />
+                                : null
+                }
 
-                    </div>
-                </div>
+
             </div >
         )
     }
