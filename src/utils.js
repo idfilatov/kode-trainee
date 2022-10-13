@@ -64,7 +64,6 @@ export const getWorkers = (filter) =>
     axios.get(`https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?${(Math.random() < 0.4) ? '__code=500' : ''}&__example=${filter}`)
         .then((response) => response.data.items)
         .then((workers) => {
-            console.log('workers in request: ', workers);
             return workers
         })
         .catch((err) => {
@@ -75,7 +74,6 @@ export const getWorkers = (filter) =>
 export const updateWorkers = (filter, callback) => {
     getWorkers(filter)
         .then((workers) => {
-            console.log('workers in Details componentDidMount: ', workers);
             callback(workers)
         })
 }

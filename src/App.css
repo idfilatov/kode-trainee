@@ -14,7 +14,6 @@ body {
     align-items: flex-start;
     padding: 0px;
 
-    /* position: absolute; */
     height: 152px;
     left: 0px;
     right: 0px;
@@ -89,13 +88,10 @@ hr {
 
 .header-search-bar {
     display: flex;
-    /* flex-direction: row; */
-    /* align-items: flex-start; */
     align-items: center;
     padding: 8px 12px;
     gap: 10px;
 
-    /* position: absolute; */
     height: 40px;
     margin-left: 16px;
     margin-right: 16px;
@@ -117,13 +113,6 @@ hr {
 
     border: none;
     background: none;
-
-    /* position: absolute; */
-
-    /* flex: none;
-    order: 0;
-    align-self: stretch;
-    flex-grow: 0; */
 
     color: #C3C3C6;
 }
@@ -156,22 +145,11 @@ hr {
 }
 
 .header-filter-tabs {
-    /* position: relative; */
-
     height: 36px;
-    /* left: 0px;
-    right: 0px;
-    bottom: 0px; */
 }
 
 .header-filter-tabs-holder {
-    /* display: flex;
-    flex-direction: row; */
-    /* align-items: center; */
-    /* padding: 0px; */
-
     position: relative;
-    /* width: 461px; */
     height: 36px;
     padding-left: 16px;
     top: 0px;
@@ -200,9 +178,6 @@ hr {
 .header-filter-button-text,
 .header-filter-button-text-active {
 
-    /* display: flex; */
-    /* flex-direction: row; */
-    /* align-items: center; */
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
@@ -212,15 +187,8 @@ hr {
     padding: 8px 12px;
     gap: 6px;
 
-    /* width: 52px; */
     height: 36px;
     color: #97979B;
-
-    /* Inside auto layout */
-
-    /* flex: none;
-    order: 0;
-    flex-grow: 0; */
 }
 
 .header-filter-button-text-active {
@@ -260,7 +228,6 @@ hr {
     justify-content: center;
     padding-right: 23px;
     padding-left: 23px;
-    /* padding: 23px; */
 }
 
 .modal-header-text {
@@ -323,7 +290,6 @@ hr {
 
 .workers-list-item {
     text-decoration: none;
-
 }
 
 .workers-list-item-content {
@@ -469,7 +435,6 @@ hr {
 .worker-details-header-avatar-holder {
     height: 184px;
 
-
     display: flex;
     justify-content: center;
 }
@@ -544,9 +509,10 @@ hr {
     margin-left: 16px;
 }
 
-.worker-details-years-old {}
-
-.worker-details-phone {}
+.worker-details-phone {
+    text-decoration: none;
+    color: #050510;
+}
 
 .no-results-holder {
     --width: 343px;
@@ -554,14 +520,12 @@ hr {
     flex-direction: column;
     align-items: flex-start;
     padding: 0px;
-    /* gap: 16px; */
 
     position: absolute;
     width: var(--width);
     height: 118px;
     left: calc(50% - var(--width)/2);
     top: 301px;
-    /* background-color: #C3C3C6; */
 }
 
 .no-results-lupa-holder {

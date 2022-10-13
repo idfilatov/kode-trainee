@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-import { departmentsToRussian, dateToHuman, getYearsOld } from './../utils'
+import { departmentsToRussian, dateToHuman } from './../utils'
 
 
 class WorkerDetailsPage extends React.Component {
@@ -16,7 +16,7 @@ class WorkerDetailsPage extends React.Component {
         }))
     }
     render() {
-        console.log('WorkerDetailsPage props: ', this.props);
+        // console.log('WorkerDetailsPage props: ', this.props);
         // console.log('WorkerDetailsPage history: ', window.location);
 
         const id = this.props.history.location.pathname.slice(1);
@@ -55,7 +55,7 @@ class WorkerDetailsPage extends React.Component {
                     <div className='worker-details-line'>
                         <i className="material-symbols-outlined" style={{ 'color': '#050510' }}>call</i>
                         <div className='worker-details-info'>
-                            {`${currentWorker?.phone ?? ''}`}
+                            <a href={'tel:' + `${currentWorker?.phone ?? ''}`} className='worker-details-phone'>{`${currentWorker?.phone ?? ''}`}</a>
                         </div>
                     </div>
                 </div>

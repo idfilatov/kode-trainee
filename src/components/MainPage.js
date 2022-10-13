@@ -4,9 +4,11 @@ import Modal from './Modal'
 import WorkersList from './WorkersList';
 import NoSearchResults from './NoSearchResults';
 import ErrorPage from './ErrorPage';
+import Search from './Search';
+import FiltersPanel from './FiltersPanel';
 
 import { reorderWorkers } from './../utils'
-import { filters, comparators } from './../utils'
+import { comparators } from './../utils'
 
 
 class MainPage extends React.Component {
@@ -29,7 +31,6 @@ class MainPage extends React.Component {
         this.setState(() => ({
             query: query.trim()
         }));
-        console.log('New query: ', query);
     }
 
     clearQuery = () => {
@@ -44,7 +45,6 @@ class MainPage extends React.Component {
 
     selectSorting = (e) => {
         const newSortType = e.currentTarget.value
-        console.log('New selected sorting: ', newSortType)
         this.setState(() => ({
             sortType: newSortType
         }));
@@ -56,7 +56,6 @@ class MainPage extends React.Component {
             filter: filter,
             query: ''
         }));
-        console.log('New filter: ', filter);
     }
 
     render() {
@@ -70,8 +69,6 @@ class MainPage extends React.Component {
         const filteredWorkers = (filter === 'all')
             ? workers
             : workers.filter((w) => (w.department === filter));
-
-        console.log('workers in render: ', filteredWorkers, 'with filter: ', filter);
 
         const showingWorkers = (query === '')
             ? filteredWorkers
@@ -88,12 +85,8 @@ class MainPage extends React.Component {
             sortedWorkers = reorderWorkers(sortedWorkers)
         }
 
-        console.log('sortedWorkers in render: ', filteredWorkers, 'with filter: ', filter);
-
-
         return (
             <div>
-
                 {modal
                     ? <Modal
                         comparators={comparators}
@@ -103,54 +96,24 @@ class MainPage extends React.Component {
                     />
                     : null
                 }
-
                 <div className='header'>
                     <div className='header-spacing'></div>
                     <div className='header-hello-panel'>
                         <div className='header-hello'>Поиск</div>
                     </div>
 
-                    <div className='header-search-panel'>
-                        <div className='header-search-bar'>
-                            <i className="material-icons" >search</i>
-                            <input
-                                className='header-search'
-                                type='text'
-                                placeholder='Введи имя, тег, почту...'
-                                value={query}
-                                onChange={(event) => this.updateQuery(event.target.value)}
-                            />
-                            {query !== ''
-                                ? <button className='header-sort' onClick={this.clearQuery}>
-                                    <i className="material-icons" >close</i>
-                                </button> : null
-                            }
+                    <Search
+                        query={query}
+                        updateQuery={this.updateQuery}
+                        clearQuery={this.clearQuery}
+                        toggleModal={this.toggleModal}
+                    />
 
-                            <button className='header-sort' onClick={this.toggleModal}>
-                                <i className="material-icons" >sort</i>
-                            </button>
-                        </div>
-
-                    </div>
-                    <div className='header-filters-panel'>
-                        <div className='header-filter-tabs'>
-                            <div className='header-filter-tabs-holder'>
-                                {filters.map((f) => <button
-                                    className={filter === f.filterName ? 'header-filter-button-active' : 'header-filter-button'}
-                                    key={f.filterName}
-                                    onClick={() => this.updateFilter(f.filterName)}>
-                                    <div className={filter === f.filterName ? 'header-filter-button-text-active' : 'header-filter-button-text'}>
-                                        {f.filterPlaceholder}
-                                    </div>
-
-                                </button>)}
-                            </div>
-                        </div>
-                        <hr />
-                    </div>
+                    <FiltersPanel
+                        filter={filter}
+                        updateFilter={this.updateFilter}
+                    />
                 </div>
-
-
                 {
                     error
                         ? <ErrorPage /> :
@@ -160,8 +123,6 @@ class MainPage extends React.Component {
                                 ? <NoSearchResults />
                                 : null
                 }
-
-
             </div >
         )
     }
